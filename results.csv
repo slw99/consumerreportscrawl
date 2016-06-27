@@ -1,4 +1,4 @@
-Name,City,State,Total Patients,Mortality %,Complication %,Start Date,End Date
+Name,City,State,Total Patients,Survival%,Complication %,Start Date,End Date
 Trinity Health,Minot,North Dakota,,,,,
 CHI Mercy Hospital,Devils Lake,North Dakota,,,,,
 CHI St. Alexius Health,Bismarck,North Dakota,38,96,84,July 2011,June 2014
