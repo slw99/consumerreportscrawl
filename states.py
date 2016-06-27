@@ -49,5 +49,3 @@ us_state_abbrev = {
     'West Virginia': 'WV',
     'Wisconsin': 'WI',
     'Wyoming': 'WY'}
-
-#us_state_abbrev = {'a':'ME'}

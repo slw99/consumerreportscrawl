@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup
 from lxml import etree
 import codecs
 import csv
@@ -11,16 +10,7 @@ from lxml.etree import _Element, Element
 def parse_page(report_card_page_path):
     page = requests.get('http://www.consumerreports.org'+report_card_page_path,verify=False)
     response = page.content
-    #soup = BeautifulSoup(page.content, "html.parser")
-    
-    #for td in soup.findAll('td'):
-        ##if td.get('class') == 'heading':
-        #print(td)
-        ##for item in td:
-        ##    print(remove_non_ascii(item))
-            
-            
-    #city,stateName, hospitalName
+
             
     htmlparser = etree.HTMLParser()
     tree = etree.XML(response, htmlparser)
@@ -29,12 +19,7 @@ def parse_page(report_card_page_path):
         elem = tds[i]
         
         if elem.text.startswith('Overall Aortic Valve Replacement'):
-            
-            #hospital name
-            #number of surgeries
-            #mortality rate
-            #complication rate
-            
+        
             
             #total patients
             total_patients_text = elem.findall('div')[0].text
@@ -83,7 +68,6 @@ def parse_page(report_card_page_path):
     
 def clean_json(json_text):
     """removes the invalid line in their json"""
-    #print(repr(json_text))
     lines = json_text.split('\n')
     response = ''
     for line in lines:
@@ -106,8 +90,7 @@ def start_crawl(filename):
         state_text = requests.get('http://www.consumerreports.org/health/pay-resources/scripts/hospital-ratings/search/%s.js'%state).content
         state_text = state_text.decode("unicode_escape")
         state_text = clean_json(state_text)
-        #state_text = state_text.replace('\'',"'")
-        
+
         state_info = json.loads(state_text )
         
         for hospital in state_info['hospitals']:
@@ -123,16 +106,9 @@ def start_crawl(filename):
                                  total_patients,mortality_score,complication_score,
                                  start_date,end_date])
             
+            #needed to watch file change
             csvfile.flush()
-            
-            #break
-            
-            
-        #break
 
 if __name__=="__main__":
     start_crawl("results.csv")
-    #print(parse_page("/health/doctors-hospitals/hospitals/hospital-ratings/baystate-medical-center-6141955-report-card.htm"))
-    #print(parse_page("/health/doctors-hospitals/hospitals/hospital-ratings/edgerton-hospital-and-health-services-6450340-report-card.htm"))
-    #print(parse_page("/health/doctors-hospitals/hospitals/hospital-ratings/spectrum-health--butterworth-hospital-6440021-report-card.htm"))
-
+ 
