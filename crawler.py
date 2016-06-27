@@ -1,11 +1,10 @@
-import requests
 from lxml import etree
-import codecs
 import csv
 import json
 import re
+import requests
+
 from states import us_state_abbrev
-from lxml.etree import _Element, Element
 
 def parse_page(report_card_page_path):
     page = requests.get('http://www.consumerreports.org'+report_card_page_path,verify=False)
